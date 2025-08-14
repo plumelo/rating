@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Rating Component Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .demo-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .demo-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .rating-example {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .rating-example strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .event-log {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .feature-list {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #0066cc;
+        }
+        .feature-list ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .css-vars {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        .css-vars code {
+            background: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Star Rating Component Demo</h1>
+    
+    <div class="feature-list">
+        <h3>✨ Key Features</h3>
+        <ul>
+            <li><strong>Hover Preview:</strong> Hover over stars to see exactly what rating you'll select</li>
+            <li><strong>Visual Feedback:</strong> Text shows "Preview: X stars" during hover and "Current: X stars" when not hovering</li>
+            <li><strong>Fractional Ratings:</strong> Supports decimal ratings like 3.23 stars</li>
+            <li><strong>Unrated Mode:</strong> Shows gray stars when no rating is set</li>
+            <li><strong>Readonly/Disabled:</strong> Non-interactive modes for display purposes</li>
+            <li><strong>Customizable:</strong> Configurable colors, sizes, and max rating via CSS variables</li>
+        </ul>
+    </div>
+
+    <div class="css-vars">
+        <h3>🎨 CSS Variables</h3>
+        <p>The component uses these CSS variables for customization:</p>
+        <ul>
+            <li><code>--rating-star-color</code> - Color for filled stars (default: #ffd700)</li>
+            <li><code>--rating-star-unrated-color</code> - Color for unrated stars (default: #d3d3d3)</li>
+            <li><code>--rating-star-hover-color</code> - Color for hover state (default: #ffed4e)</li>
+            <li><code>--rating-star-size</code> - Size of stars (default: 24px)</li>
+            <li><code>--rating-star-spacing</code> - Gap between stars (default: 2px)</li>
+        </ul>
+    </div>
+
+    <div class="demo-section">
+        <h3>Interactive Rating with Hover Feedback</h3>
+        <p>Hover over the stars below to see the preview functionality. Click to set your rating.</p>
+        
+        <div class="rating-example">
+            <strong>Rate this component:</strong>
+            <star-rating id="demo-rating" @rating="handleRating(event)"></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Current rating display (updates automatically):</strong>
+            <star-rating id="display-rating" readonly></star-rating>
+        </div>
+        
+        <div class="event-log" id="event-log">
+            <strong>Event Log:</strong>
+            <div>Click on stars to see events here...</div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>Different Rating Examples</h3>
+        
+        <div class="rating-example">
+            <strong>Unrated (no rating set):</strong>
+            <star-rating></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Whole number rating (3 stars):</strong>
+            <star-rating rating="3"></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Fractional rating (3.23 stars - as requested):</strong>
+            <star-rating rating="3.23"></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Another fractional rating (3.7 stars):</strong>
+            <star-rating rating="3.7"></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Readonly mode:</strong>
+            <star-rating rating="4.2" readonly></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Disabled mode:</strong>
+            <star-rating rating="2.5" disabled></star-rating>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>Custom Styling Examples</h3>
+        
+        <div class="rating-example">
+            <strong>Small stars (16px):</strong>
+            <star-rating rating="3.5" style="--rating-star-size: 16px;"></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Large stars (32px):</strong>
+            <star-rating rating="3.5" style="--rating-star-size: 32px;"></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Red stars:</strong>
+            <star-rating rating="3.5" style="--rating-star-color: #ff4444; --rating-star-hover-color: #ff6666;"></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Blue stars:</strong>
+            <star-rating rating="3.5" style="--rating-star-color: #4444ff; --rating-star-hover-color: #6666ff;"></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Green stars:</strong>
+            <star-rating rating="3.5" style="--rating-star-color: #44ff44; --rating-star-hover-color: #66ff66;"></star-rating>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>Different Max Ratings</h3>
+        
+        <div class="rating-example">
+            <strong>3 stars max:</strong>
+            <star-rating rating="2.5" maxRating="3"></star-rating>
+        </div>
+        
+        <div class="rating-example">
+            <strong>10 stars max:</strong>
+            <star-rating rating="7.3" maxRating="10"></star-rating>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>Usage Examples</h3>
+        
+        <div class="rating-example">
+            <strong>Basic usage:</strong>
+            <code>&lt;star-rating rating="3.5"&gt;&lt;/star-rating&gt;</code>
+        </div>
+        
+        <div class="rating-example">
+            <strong>With event listener:</strong>
+            <code>&lt;star-rating @rating="handleRating"&gt;&lt;/star-rating&gt;</code>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Readonly display:</strong>
+            <code>&lt;star-rating rating="4.2" readonly&gt;&lt;/star-rating&gt;</code>
+        </div>
+        
+        <div class="rating-example">
+            <strong>Custom colors:</strong>
+            <code>&lt;star-rating rating="3.5" style="--rating-star-color: #ff4444;"&gt;&lt;/star-rating&gt;</code>
+        </div>
+    </div>
+
+    <script type="module">
+        import '../src/index.js';
+        
+        function handleRating(event) {
+            const rating = event.detail.rating;
+            const log = document.getElementById('event-log');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            // Add event to log
+            const eventDiv = document.createElement('div');
+            eventDiv.textContent = `[${timestamp}] Rating changed to: ${rating} stars`;
+            log.appendChild(eventDiv);
+            
+            // Keep only last 10 events
+            while (log.children.length > 11) {
+                log.removeChild(log.firstChild.nextSibling);
+            }
+            
+            // Update display rating
+            const displayRating = document.getElementById('display-rating');
+            if (displayRating) {
+                displayRating.rating = rating;
+            }
+            
+            console.log('Rating event:', event.detail);
+        }
+        
+        // Add some initial content to event log
+        document.getElementById('event-log').innerHTML = `
+            <strong>Event Log:</strong>
+            <div>Component loaded. Hover over stars to see preview, click to rate!</div>
+        `;
+    </script>
+</body>
+</html>
